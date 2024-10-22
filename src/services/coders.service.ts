@@ -39,4 +39,15 @@ export class CoderService {
       throw error;
     }
   }
+
+  async update(id: string, coder: ICoder) {
+    try {
+      const updatedCoder = await this.httpClient.put<ICoder, ICoder>(`coders/${id}`, coder);
+      return updatedCoder;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+  
 }
