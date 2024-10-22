@@ -4,3 +4,8 @@ export interface ICoder {
   avatar: string;
   id: string;
 }
+
+export interface ICreateCoder{
+  name: string;
+  avatar: string;
+}

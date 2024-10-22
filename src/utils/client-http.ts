@@ -1,4 +1,4 @@
-const defaultBaseUrl = "https://671638e333bc2bfe40bcf64d.mockapi.io/api/v1";
+const defaultBaseUrl = "https://671799deb910c6a6e029119d.mockapi.io";
 
 export class HttpClient {
   private baseUrl: string;
@@ -40,6 +40,17 @@ export class HttpClient {
     return this.handleResponse(response);
   }
 
+  async put<T, B>(url: string, body: B): Promise<T> {
+    const headers = await this.getHeader();
+    const response = await fetch(`${this.baseUrl}/${url}`, {
+      headers: headers,
+      method: "PUT",
+      body: JSON.stringify(body),
+    });
+
+    return this.handleResponse(response);
+  }
+
   private async getHeader() {
     return {
       "Content-Type": "application/json",
@@ -48,7 +59,10 @@ export class HttpClient {
 
   private async handleResponse(response: Response) {
     if (!response.ok) {
+
+
       const errorData = await response.json();
+      console.log(errorData);
       throw new Error(errorData.message || "Ocurrió un error en la peticion");
     }
 

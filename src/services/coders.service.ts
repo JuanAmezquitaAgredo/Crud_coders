@@ -1,4 +1,4 @@
-import { ICoder } from "@/models/coders/coder.model";
+import { ICoder, ICreateCoder } from "@/models/coders/coder.model";
 import { HttpClient } from "@/utils/client-http";
 
 export class CoderService {
@@ -24,6 +24,16 @@ export class CoderService {
       const coders = this.httpClient.delete<ICoder>(`coders/${id}`);
 
       return coders;
+    } catch (error) {
+      console.log(error);
+      throw error;
+    }
+  }
+
+  async create(coder: ICreateCoder) {
+    try {
+      const createdCoder = await this.httpClient.post<ICoder, ICreateCoder>("coders", coder);
+      return createdCoder;
     } catch (error) {
       console.log(error);
       throw error;

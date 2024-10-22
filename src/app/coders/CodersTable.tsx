@@ -9,38 +9,45 @@ interface IProps {
 }
 
 function CodersTable({ data }: IProps) {
-//   const [coderList, setCoderList] = useState<ICoder[]>(data)
+  //   const [coderList, setCoderList] = useState<ICoder[]>(data)
 
   const useCoderService = new CoderService()
   const router = useRouter()
-  const handleDelete = async (id: string ) => {
+  const handleDelete = async (id: string) => {
     await useCoderService.destroy(id)
     router.refresh()
   }
+
+  const handleCreateCoder = () => {
+    router.push('/CreateCoder')
+  }
   return (
-    <table>
+    <div>
+      <button onClick={handleCreateCoder}>Crear nuevo Coder</button>
+      <table>
         <thead>
-            <tr>
-                <th>Id</th>
-                <th>Name</th>
-                <th>Avatar</th>
-                <th>Acciones</th>
-            </tr>
+          <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Avatar</th>
+            <th>Acciones</th>
+          </tr>
         </thead>
         <tbody>
-            {data.map((coder, index) => (
+          {data.map((coder, index) => (
             <tr key={index}>
-                <td>{coder.id}</td>
-                <td>{coder.name}</td>
-                <td>{coder.avatar}</td>
-                <td>
-                    <button>Editar</button>
-                    <button  onClick={()=> handleDelete(coder.id)}>Eliminar</button>
-                </td>
+              <td>{coder.id}</td>
+              <td>{coder.name}</td>
+              <td>{coder.avatar}</td>
+              <td>
+                <button>Editar</button>
+                <button onClick={() => handleDelete(coder.id)}>Eliminar</button>
+              </td>
             </tr>
-            ))}
+          ))}
         </tbody>
-    </table>
+      </table>
+    </div>
   );
 }
 
